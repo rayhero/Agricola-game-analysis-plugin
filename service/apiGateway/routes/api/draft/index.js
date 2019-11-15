@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    res.send('!!!!!')
+    res.send('./api/draft')
 })
 
 module.exports = router;

@@ -16,4 +16,8 @@ router.use(function (err, req, res, next) {
   return next(err);
 });
 
+router.get('/', (req, res) => {
+  res.send('./api')
+})
+
 module.exports = router;

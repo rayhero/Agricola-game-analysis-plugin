@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div>
         <input v-model="gameLogId" value="333911" style="display:inline" />
@@ -11,25 +11,53 @@
       </div>
     </div>
 
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a
-        v-for="selectedHand in draftInfo.selectedHands"
-        :key="selectedHand.player"
-        class="nav-link"
-        :href="'#' + selectedHand.player"
-        data-toggle="tab"
-      >{{selectedHand.player}}</a>
+    <div>
+      <h1>FinalScore</h1>
     </div>
 
-    <div class="tab-content">
-      <SelectedHand
-        v-for="selectedHand in draftInfo.selectedHands"
-        :key="selectedHand.player"
-        class="tab-pane fade"
-        :id="selectedHand.player"
-        :selectedHand="selectedHand"
-        role="tabpanel"
-      ></SelectedHand>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>A</th>
+          <th>B</th>
+          <th>C</th>
+          <th>D</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">54</td>
+          <td>52</td>
+          <td>51</td>
+          <td>49</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div v-if="isLoaded">
+      <div>
+        <h1>Draft result</h1>
+      </div>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a
+          v-for="selectedHand in draftInfo.selectedHands"
+          :key="selectedHand.player"
+          class="nav-link"
+          :href="'#' + selectedHand.player"
+          data-toggle="tab"
+        >{{selectedHand.player}}</a>
+      </div>
+
+      <div class="tab-content">
+        <SelectedHand
+          v-for="selectedHand in draftInfo.selectedHands"
+          :key="selectedHand.player"
+          class="tab-pane fade"
+          :id="selectedHand.player"
+          :selectedHand="selectedHand"
+          role="tabpanel"
+        ></SelectedHand>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +74,7 @@ export default {
       draftNumber: 9,
       gameLogId: 333982,
       draftInfo: {},
+      isLoaded: false,
       cardActiveClass:
         "img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|} selectCard",
       cardInActiveClass:
@@ -57,6 +86,7 @@ export default {
       const url =
         "http://playagricola.com/Agricola/GameLogs/allturnserver.php?x=" + id;
       this.draftInfo = await getDraftInfoFromUrl(url);
+      this.isLoaded = true;
     }
   }
 };
