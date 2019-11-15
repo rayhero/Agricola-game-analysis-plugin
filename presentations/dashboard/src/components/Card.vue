@@ -62,7 +62,7 @@
   </div>
 </template>
 <script>
-import { getDraftInfoFromUrl } from "../scripts/api";
+import { getDraftInfoById } from "../scripts/api";
 import SelectedHand from "./SelectedHand";
 
 export default {
@@ -83,9 +83,7 @@ export default {
   },
   methods: {
     onChangeGameLogId: async function(id) {
-      const url =
-        "http://playagricola.com/Agricola/GameLogs/allturnserver.php?x=" + id;
-      this.draftInfo = await getDraftInfoFromUrl(url);
+      this.draftInfo = await getDraftInfoById(id);
       this.isLoaded = true;
     }
   }
